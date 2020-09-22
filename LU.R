@@ -46,3 +46,15 @@ elementary_3 = function(m, i, j, b){
   m[i,] = m[i,] + b*m[j,]
   return(m)
 }
+
+#Following function tries to compute the LU
+#decomposition via echelon reduction
+#-----input--------
+#m: R's matrix type
+#-----output-------
+#print the LU factorization and returns a vector
+#c(L,U) containing Upper and Lower R's matrices
+#If not factorization exists, it'll print an error message
+#giving the position in the matrix
+
+LU = 
