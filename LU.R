@@ -50,11 +50,47 @@ elementary_3 = function(m, i, j, b){
 #Following function tries to compute the LU
 #decomposition via echelon reduction
 #-----input--------
-#m: R's matrix type
+#M: R's matrix type
 #-----output-------
-#print the LU factorization and returns a vector
-#c(L,U) containing Upper and Lower R's matrices
+#prints the LU factorization and returns a list
+#(L,U) containing Upper and Lower R's matrices.
+#
 #If not factorization exists, it'll print an error message
-#giving the position in the matrix
+#giving the position in the matrix were error was caused
 
-LU = 
+LU = function(M){
+  
+  #we find the matrix dimension
+  n = dim(M)[1]
+  
+  L = diag(n)
+  U = M
+  
+  #iterating over every column:
+  for (j in 1:(n-1)) {
+    #veryfing that the diagonal pivot is nonzero
+    if(M[j,j] == 0){ 
+      stop(paste("The pivot (",j,",",j,") is zero"))
+    }
+    #iterating over rows below the jth row
+    for (i in (j+1):n) {
+      #sum 
+      L[i,j] =  U[i,j]/U[j,j]
+      U = elementary_3(U,i,j,-U[i,j]/U[j,j])
+    }
+  }
+  #we print the factorization
+  print("L: ")
+  print(L)
+  print("U: ")
+  print(U)
+  return(list(L,U))
+}
+
+M = matrix(c(1,2,-1,4,0,-1,5,8,2,3,1,4,1,-1,6,4), nrow = 4, byrow = T)
+M
+dim(M)
+LU(M)
+
+
+
