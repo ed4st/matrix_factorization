@@ -1,10 +1,8 @@
 #followong function loads the matrix via keyboard
 loadMatrix = function(){
-  s = readline("Enter the size of the mxn matrix separated by coma (,):")
-  sNum = strtoi(strsplit(s,",")[[1]]) #here we split and parse 
-  #the input data to integer
-  m = sNum[1]
-  n = sNum[2]
+  s = readline("Enter the size of the matrix:")
+  n = strtoi(s) #
+  
   v = c()
   print("Enter the data by rows, separated by coma (,)")
   for (i in 1:m) {
@@ -86,6 +84,13 @@ LU = function(M){
   print(U)
   return(list(L,U))
 }
+
+main_function = function(){
+  A = loadMatrix()
+  LU(A)
+}
+
+main_function()
 
 M = matrix(c(1,2,-1,4,0,-1,5,8,2,3,1,4,1,-1,6,4), nrow = 4, byrow = T)
 M
