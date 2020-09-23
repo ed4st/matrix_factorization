@@ -59,5 +59,41 @@ elementary_3 = function(m, i, j, b){
 #giving the position in the matrix were error was caused
 
 PA_LU = function(M){
+  #we find the matrix dimension
+  n = dim(M)[1]
   
+  L = diag(n)
+  P = diag(n)
+  U = M
+  
+  #iterating over every column:
+  for (j in 1:(n-1)) {
+    #finding the maximun element below 
+    #the jth position in the jth column
+    jth_col = U[,j]
+    max_index = which.max(abs(jth_col[j:n]))
+    
+    #Modifying the Upper and Permutation matrix
+    P = elementary_1(P, j, max_index)
+    U = elementary_1(U, j, max_index)
+    #iterating over rows below the jth row
+    for (i in (j+1):n) {
+      #sum 
+      L[i,j] =  U[i,j]/U[j,j]
+      U = elementary_3(U,i,j,-U[i,j]/U[j,j])
+    }
+  }
+  print("P: ")
+  print(P)
+  print("U: ")
+  print(U)
+  print("L: ")
+  print(L)
+  print("A: ")
+  print(M)
 }
+
+A = matrix(c(2,1,5,4,4,-4,1,3,1), nrow = 3, byrow = T)
+PA_LU(A)
+debug(PA_LU)
+
